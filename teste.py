@@ -42,4 +42,14 @@ while True:
     # Árvore
     draw.rect(window, (139, 69, 19), (900, 500, 30, 120))  
     draw.circle(window, (34, 139, 34), (915, 470), 80)  
+
+        # Oito linhas em volta do sol
+    draw.line(window, (255, 255, 0), (200, 70), (200, 40), 3)   
+    draw.line(window, (255, 255, 0), (200, 230), (200, 260), 3) 
+    draw.line(window, (255, 255, 0), (120, 150), (90, 150), 3)  
+    draw.line(window, (255, 255, 0), (280, 150), (310, 150), 3) 
+    draw.line(window, (255, 255, 0), (150, 100), (120, 70), 3)  
+    draw.line(window, (255, 255, 0), (250, 100), (280, 70), 3)  
+    draw.line(window, (255, 255, 0), (150, 200), (120, 230), 3) 
+    draw.line(window, (255, 255, 0), (250, 200), (280, 230), 3)
     display.update()
