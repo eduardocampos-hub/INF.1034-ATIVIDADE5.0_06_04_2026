@@ -1,5 +1,5 @@
 from pygame import *
-
+import sys
 init()
 
 window = display.set_mode((1280,720))
@@ -27,8 +27,8 @@ while True:
     # Janela
     draw.rect(window, (68, 161, 219), (530, 480, 50, 50))  
 
-    # desenhar o sol
-    draw.circle(window, (255, 255,0),(200,150),80)
+    # sol
+    draw.circle(window, (255, 255,0),(200,150),50)
 
     #Macaneta
     draw.circle(window,(255,215,0),(670,550),7)
@@ -44,12 +44,12 @@ while True:
     draw.circle(window, (34, 139, 34), (915, 470), 80)  
 
         # Oito linhas em volta do sol
-    draw.line(window, (255, 255, 0), (200, 70), (200, 40), 3)   
-    draw.line(window, (255, 255, 0), (200, 230), (200, 260), 3) 
-    draw.line(window, (255, 255, 0), (120, 150), (90, 150), 3)  
-    draw.line(window, (255, 255, 0), (280, 150), (310, 150), 3) 
-    draw.line(window, (255, 255, 0), (150, 100), (120, 70), 3)  
-    draw.line(window, (255, 255, 0), (250, 100), (280, 70), 3)  
-    draw.line(window, (255, 255, 0), (150, 200), (120, 230), 3) 
-    draw.line(window, (255, 255, 0), (250, 200), (280, 230), 3)
+    draw.line(window, (255, 255, 0), (200, 60), (200, 120), 7)   
+    draw.line(window, (255, 255, 0), (200, 200), (200, 250), 7) 
+    draw.line(window, (255, 255, 0), (150, 150), (100, 150), 7)  
+    draw.line(window, (255, 255, 0), (250, 150), (300, 150), 7) 
+    draw.line(window, (255, 255, 0), (170, 120), (120, 70), 7)  
+    draw.line(window, (255, 255, 0), (230, 120), (280, 70), 7)  
+    draw.line(window, (255, 255, 0), (170, 180), (120, 230), 7) 
+    draw.line(window, (255, 255, 0), (230, 180), (280, 230), 7)
     display.update()
