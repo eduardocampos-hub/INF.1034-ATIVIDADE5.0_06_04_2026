@@ -2,6 +2,22 @@ from pygame import *
 import sys
 init()
 
+#imagens
+
+arroz_img = image.load("arroz.png")
+arroz_img = transform.scale(arroz_img,(50,50))
+
+#texto
+newton_font = font.Font("ThisAppeal-FreeDemo.ttf", 30)
+newton_text = newton_font.render("I am Newton", True, (255,222,234))
+
+#musica
+mixer_music.load("Luan santana - Chuva De Arroz (Luan Santana Acústico - Vídeo Oficial) - Luan Santana (128k).mp3")
+mixer_music.play(-1)
+music = mixer.Sound("Luan santana - Chuva De Arroz (Luan Santana Acústico - Vídeo Oficial) - Luan Santana (128k).mp3")
+music.set_volume(0.1)
+
+
 window = display.set_mode((1280,720))
 
 window.fill((152,209,250))
@@ -45,7 +61,13 @@ while True:
     draw.rect(window, (139, 69, 19), (900, 500, 30, 120))  
     draw.circle(window, (34, 139, 34), (915, 470), 80)  
 
-        # Oito linhas em volta do sol
+    # Arroz
+    window.blit(arroz_img,(1010, 390))
+
+    #desenhar texto:
+    window.blit(newton_text,(750, 650))
+
+    # Oito linhas em volta do sol
     draw.line(window, (255, 255, 0), (200, 60), (200, 120), 7)   
     draw.line(window, (255, 255, 0), (200, 200), (200, 250), 7) 
     draw.line(window, (255, 255, 0), (150, 150), (100, 150), 7)  
