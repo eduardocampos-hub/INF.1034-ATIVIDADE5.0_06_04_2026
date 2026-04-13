@@ -9,7 +9,7 @@ arroz_img = transform.scale(arroz_img,(50,50))
 
 #texto
 newton_font = font.Font("ThisAppeal-FreeDemo.ttf", 30)
-newton_text = newton_font.render("I am Newton", True, (255,222,234))
+newton_text = newton_font.render("I am Arroz", True, (255,222,234))
 
 #musica
 mixer_music.load("Luan santana - Chuva De Arroz (Luan Santana Acústico - Vídeo Oficial) - Luan Santana (128k).mp3")
@@ -22,6 +22,9 @@ window = display.set_mode((1280,720))
 
 window.fill((152,209,250))
 
+#nuvem andando
+nuvem_x = 800
+velocidade = 2
 
 while True:
     for ev in event.get():
@@ -30,7 +33,13 @@ while True:
             sys.exit()
 
     #desenhar a partir daqui
- 
+     # NUVEM ANDANDO
+
+    window.fill((151, 209, 250))
+    nuvem_x += velocidade
+    if nuvem_x > 1280:
+        nuvem_x = -200
+
     draw.rect(window, (34, 139, 34), (0, 600, 1280, 120)) 
 
     # Casa
@@ -48,14 +57,16 @@ while True:
     # sol
     draw.circle(window, (255, 255,0),(200,150),50)
 
+
+
     #Macaneta
     draw.circle(window,(255,215,0),(670,550),7)
 
     #nuvem
-    draw.circle(window, (255, 255, 255), (1000, 100), 50)  
-    draw.circle(window, (255, 255, 255), (1050, 100), 50)   
-    draw.circle(window, (255, 255, 255), (1100, 100), 50)  
-    draw.circle(window, (255, 255, 255), (1150, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x + 65, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x + 130, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x + 195, 100), 50)
 
     # Árvore
     draw.rect(window, (139, 69, 19), (900, 500, 30, 120))  
@@ -76,4 +87,6 @@ while True:
     draw.line(window, (255, 255, 0), (230, 120), (280, 70), 7)  
     draw.line(window, (255, 255, 0), (170, 180), (120, 230), 7) 
     draw.line(window, (255, 255, 0), (230, 180), (280, 230), 7)
+
+    music.play()
     display.update()
