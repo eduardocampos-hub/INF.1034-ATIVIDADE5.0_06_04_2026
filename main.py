@@ -52,6 +52,7 @@ while running:
         velocidade = -2
     if nuvem_x < margem_esquerda - 200: 
         velocidade = 2
+    nuvem_x += velocidade
     draw.rect(window, (34, 139, 34), (0, 600, 1280, 120)) 
 
     # Casa
