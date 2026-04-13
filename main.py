@@ -18,28 +18,40 @@ music = mixer.Sound("Luan santana - Chuva De Arroz (Luan Santana Acústico - Ví
 music.set_volume(0.1)
 
 
+
 window = display.set_mode((1280,720))
 
 window.fill((152,209,250))
 
+#margem 
+margem_esquerda = 1
+margem_direita = 1050 
+margem_topo = 50
+margem_base = 720 - 50
+
 #nuvem andando
-nuvem_x = 800
+nuvem_x = 400
 velocidade = 2
 
-while True:
+
+# definir
+running = True
+
+while running:
     for ev in event.get():
         if ev.type == QUIT:
-            quit()
-            sys.exit()
+            running = False
 
     #desenhar a partir daqui
      # NUVEM ANDANDO
-
     window.fill((151, 209, 250))
-    nuvem_x += velocidade
-    if nuvem_x > 1280:
-        nuvem_x = -200
 
+
+    # Movimento da nuvem com margens
+    if nuvem_x > margem_direita:
+        velocidade = -2
+    if nuvem_x < margem_esquerda - 200: 
+        velocidade = 2
     draw.rect(window, (34, 139, 34), (0, 600, 1280, 120)) 
 
     # Casa
