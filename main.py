@@ -2,14 +2,24 @@ from pygame import *
 import sys
 init()
 
-#imagens
+window = display.set_mode((1280,720))
+running = True
+clock = time.Clock()
 
+## Definição de variáveis
+estagio = 0
+pos_x = 300
+pos_y = 150
+background_color = "#97D1FA"
+texto = "I am ARROZ!"
+
+#imagem
 arroz_img = image.load("arroz.png")
 arroz_img = transform.scale(arroz_img,(50,50))
 
 #texto
-newton_font = font.Font("ThisAppeal-FreeDemo.ttf", 30)
-newton_text = newton_font.render("I am Arroz", True, (255,222,234))
+arroz_font = font.Font("ThisAppeal-FreeDemo.ttf", 30)
+arroz_text = arroz_font.render(texto, True, (255,222,234))
 
 #musica
 mixer_music.load("Luan santana - Chuva De Arroz (Luan Santana Acústico - Vídeo Oficial) - Luan Santana (128k).mp3")
@@ -19,12 +29,10 @@ music.set_volume(0.1)
 
 
 
-window = display.set_mode((1280,720))
 
-window.fill((152,209,250))
 
 #margem 
-margem_esquerda = 1
+margem_esquerda = 10
 margem_direita = 1050 
 margem_topo = 50
 margem_base = 720 - 50
@@ -33,26 +41,59 @@ margem_base = 720 - 50
 nuvem_x = 400
 velocidade = 2
 
-
-# definir
-running = True
-
 while running:
+    clock.tick(60)
+
     for ev in event.get():
         if ev.type == QUIT:
             running = False
+        
+        if ev.type == MOUSEBUTTONUP:
+            if ev.button == 1:
+                texto = "I said I AM ARROZ!"
+            elif ev.button == 3:
+                texto = "I AM ARROZ!"
 
-    #desenhar a partir daqui
+        # AÇÕES INSTANTÂNEAS
+        if ev.type == KEYDOWN:
+            key_pressed = ev.key
+            if key_pressed == K_SPACE:
+                estagio = (estagio + 1) % 3
+                
+                if estagio == 0:
+                    # Dia claro
+                    background_color = "#97D1FA"
+                    pos_y = 150
+                elif estagio == 1:
+                    # Pôr do sol inicial
+                    background_color = (245, 178, 64)
+                    pos_y = 300
+                else:
+                    # Pôr do sol mais escuro com sol em baixo
+                    background_color = (10, 10, 10)
+                    pos_y = 510
+    # #desenhar a partir daqui
      # NUVEM ANDANDO
-    window.fill((151, 209, 250))
+    window.fill(background_color)
 
+        ## Update
+    dt = clock.get_time()/1000
+    keys = key.get_pressed()
+    
+    # AÇÕES CONTÍNUAS
+    if keys[K_d]:
+        pos_x = pos_x + 100 * dt
+    elif keys[K_a]:
+        pos_x = pos_x - 100 * dt
 
     # Movimento da nuvem com margens
     if nuvem_x > margem_direita:
         velocidade = -2
-    if nuvem_x < margem_esquerda - 200: 
+    if nuvem_x < margem_esquerda: 
         velocidade = 2
     nuvem_x += velocidade
+
+    # Chão
     draw.rect(window, (34, 139, 34), (0, 600, 1280, 120)) 
 
     # Casa
@@ -68,18 +109,14 @@ while running:
     draw.rect(window, (68, 161, 219), (530, 480, 50, 50))  
 
     # sol
-    draw.circle(window, (255, 255,0),(200,150),50)
+    draw.circle(window, (255, 255,0),(200,pos_y),50)
 
 
 
     #Macaneta
     draw.circle(window,(255,215,0),(670,550),7)
 
-    #nuvem
-    draw.circle(window,(255, 255, 255), (nuvem_x, 100), 50)
-    draw.circle(window,(255, 255, 255), (nuvem_x + 65, 100), 50)
-    draw.circle(window,(255, 255, 255), (nuvem_x + 130, 100), 50)
-    draw.circle(window,(255, 255, 255), (nuvem_x + 195, 100), 50)
+
 
     # Árvore
     draw.rect(window, (139, 69, 19), (900, 500, 30, 120))  
@@ -89,17 +126,23 @@ while running:
     window.blit(arroz_img,(1010, 390))
 
     #desenhar texto:
-    window.blit(newton_text,(750, 650))
+    window.blit(arroz_text,(750, 650))
 
     # Oito linhas em volta do sol
-    draw.line(window, (255, 255, 0), (200, 60), (200, 120), 7)   
-    draw.line(window, (255, 255, 0), (200, 200), (200, 250), 7) 
-    draw.line(window, (255, 255, 0), (150, 150), (100, 150), 7)  
-    draw.line(window, (255, 255, 0), (250, 150), (300, 150), 7) 
-    draw.line(window, (255, 255, 0), (170, 120), (120, 70), 7)  
-    draw.line(window, (255, 255, 0), (230, 120), (280, 70), 7)  
-    draw.line(window, (255, 255, 0), (170, 180), (120, 230), 7) 
-    draw.line(window, (255, 255, 0), (230, 180), (280, 230), 7)
+    draw.line(window, (255, 255, 0), (200, pos_y - 50), (200, pos_y - 110), 7)   
+    draw.line(window, (255, 255, 0), (200, pos_y + 50), (200, pos_y + 110), 7) 
+    draw.line(window, (255, 255, 0), (150, pos_y), (100, pos_y), 7)  
+    draw.line(window, (255, 255, 0), (250, pos_y), (300, pos_y), 7) 
+    draw.line(window, (255, 255, 0), (164, pos_y - 36), (122, pos_y - 78), 7)  
+    draw.line(window, (255, 255, 0), (236, pos_y - 36), (278, pos_y - 78), 7)  
+    draw.line(window, (255, 255, 0), (164, pos_y + 36), (122, pos_y + 78), 7) 
+    draw.line(window, (255, 255, 0), (236, pos_y + 36), (278, pos_y + 78), 7)
+
+        #nuvem
+    draw.circle(window,(255, 255, 255), (nuvem_x, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x + 65, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x + 130, 100), 50)
+    draw.circle(window,(255, 255, 255), (nuvem_x + 195, 100), 50)
 
     music.play()
     display.update()
