@@ -12,6 +12,7 @@ pos_x = 300
 pos_y = 150
 background_color = "#97D1FA"
 texto = "I am ARROZ!"
+movimento_com_mouse = False  # Controla se o sol se move com mouse (True) ou teclado (False)
 
 #imagem
 arroz_img = image.load("arroz.png")
@@ -72,6 +73,10 @@ while running:
                     # Pôr do sol mais escuro com sol em baixo
                     background_color = (10, 10, 10)
                     pos_y = 510
+            
+            # Tecla G para alternar entre movimento com teclado e mouse
+            if key_pressed == K_g:
+                movimento_com_mouse = not movimento_com_mouse
     # #desenhar a partir daqui
      # NUVEM ANDANDO
     window.fill(background_color)
@@ -80,12 +85,22 @@ while running:
     dt = clock.get_time()/1000
     keys = key.get_pressed()
     
-    # AÇÕES CONTÍNUAS
-    if keys[K_d]:
-        pos_x = pos_x + 100 * dt
-    elif keys[K_a]:
-        pos_x = pos_x - 100 * dt
-
+    # AÇÕES CONTÍNUAS - Movimento condicional
+    if not movimento_com_mouse:
+        # Movimento com teclado (WASD)
+        if keys[K_d]:
+            pos_x = pos_x + 100 * dt
+        elif keys[K_a]:
+            pos_x = pos_x - 100 * dt
+        elif keys[K_w]:
+            pos_y = pos_y - 100 * dt
+        elif keys[K_s]:
+            pos_y = pos_y + 100 * dt
+    else:
+        # Movimento com mouse
+        mouse_x, mouse_y = mouse.get_pos()
+        pos_x = mouse_x
+        pos_y = mouse_y
     # Movimento da nuvem com margens
     if nuvem_x > margem_direita:
         velocidade = -2
@@ -109,7 +124,7 @@ while running:
     draw.rect(window, (68, 161, 219), (530, 480, 50, 50))  
 
     # sol
-    draw.circle(window, (255, 255,0),(200,pos_y),50)
+    draw.circle(window, (255, 255,0),(pos_x,pos_y),50)
 
 
 
@@ -129,16 +144,16 @@ while running:
     window.blit(arroz_text,(750, 650))
 
     # Oito linhas em volta do sol
-    draw.line(window, (255, 255, 0), (200, pos_y - 50), (200, pos_y - 110), 7)   
-    draw.line(window, (255, 255, 0), (200, pos_y + 50), (200, pos_y + 110), 7) 
-    draw.line(window, (255, 255, 0), (150, pos_y), (100, pos_y), 7)  
-    draw.line(window, (255, 255, 0), (250, pos_y), (300, pos_y), 7) 
-    draw.line(window, (255, 255, 0), (164, pos_y - 36), (122, pos_y - 78), 7)  
-    draw.line(window, (255, 255, 0), (236, pos_y - 36), (278, pos_y - 78), 7)  
-    draw.line(window, (255, 255, 0), (164, pos_y + 36), (122, pos_y + 78), 7) 
-    draw.line(window, (255, 255, 0), (236, pos_y + 36), (278, pos_y + 78), 7)
+    draw.line(window, (255, 255, 0), (pos_x, pos_y - 50), (pos_x, pos_y - 110), 7)   
+    draw.line(window, (255, 255, 0), (pos_x, pos_y + 50), (pos_x, pos_y + 110), 7) 
+    draw.line(window, (255, 255, 0), (pos_x - 50, pos_y), (pos_x - 100, pos_y), 7)  
+    draw.line(window, (255, 255, 0), (pos_x + 50, pos_y), (pos_x + 100, pos_y), 7) 
+    draw.line(window, (255, 255, 0), (pos_x - 36, pos_y - 36), (pos_x - 78, pos_y - 78), 7)  
+    draw.line(window, (255, 255, 0), (pos_x + 36, pos_y - 36), (pos_x + 78, pos_y - 78), 7)  
+    draw.line(window, (255, 255, 0), (pos_x - 36, pos_y + 36), (pos_x - 78, pos_y + 78), 7) 
+    draw.line(window, (255, 255, 0), (pos_x + 36, pos_y + 36), (pos_x + 78, pos_y + 78), 7)
 
-        #nuvem
+    #nuvem
     draw.circle(window,(255, 255, 255), (nuvem_x, 100), 50)
     draw.circle(window,(255, 255, 255), (nuvem_x + 65, 100), 50)
     draw.circle(window,(255, 255, 255), (nuvem_x + 130, 100), 50)
