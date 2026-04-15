@@ -73,13 +73,13 @@ while running:
     if not movimento_com_mouse:
         # Movimento com teclado (WASD)
         if keys[K_d]:
-            pos_x = pos_x + 100 * dt
+            pos_x = pos_x + 300 * dt
         elif keys[K_a]:
-            pos_x = pos_x - 100 * dt
+            pos_x = pos_x - 300 * dt
         elif keys[K_w]:
-            pos_y = pos_y - 100 * dt
+            pos_y = pos_y - 300 * dt
         elif keys[K_s]:
-            pos_y = pos_y + 100 * dt
+            pos_y = pos_y + 300 * dt
     else:
         # Movimento com mouse
         mouse_x, mouse_y = mouse.get_pos()
@@ -95,7 +95,7 @@ while running:
 
     if pos_x < 400:
         background_color = "#97D1FA"
-    elif pos_x < 600:
+    elif pos_x < 800:
         background_color = "#F2883B"    
     else:
         background_color = "#0D1664"
