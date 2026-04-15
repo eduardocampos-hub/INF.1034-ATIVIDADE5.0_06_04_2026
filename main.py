@@ -54,26 +54,10 @@ while running:
                 texto = "I said I AM ARROZ!"
             elif ev.button == 3:
                 texto = "I AM ARROZ!"
-
+        
         # AÇÕES INSTANTÂNEAS
         if ev.type == KEYDOWN:
             key_pressed = ev.key
-            if key_pressed == K_SPACE:
-                estagio = (estagio + 1) % 3
-                
-                if estagio == 0:
-                    # Dia claro
-                    background_color = "#97D1FA"
-                    pos_y = 150
-                elif estagio == 1:
-                    # Pôr do sol inicial
-                    background_color = (245, 178, 64)
-                    pos_y = 300
-                else:
-                    # Pôr do sol mais escuro com sol em baixo
-                    background_color = (10, 10, 10)
-                    pos_y = 510
-            
             # Tecla G para alternar entre movimento com teclado e mouse
             if key_pressed == K_g:
                 movimento_com_mouse = not movimento_com_mouse
@@ -108,6 +92,13 @@ while running:
         velocidade = 2
     nuvem_x += velocidade
 
+
+    if pos_x < 400:
+        background_color = "#97D1FA"
+    elif pos_x < 600:
+        background_color = "#F2883B"    
+    else:
+        background_color = "#0D1664"
     # Chão
     draw.rect(window, (34, 139, 34), (0, 600, 1280, 120)) 
 
